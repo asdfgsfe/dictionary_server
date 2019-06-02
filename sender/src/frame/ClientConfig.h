@@ -1,8 +1,8 @@
 #ifndef _CLIENTCONFIG_H_
 #define _CLIENTCONFIG_H_
 
-#include "../Public/SystemConfig.h"
-#include "../Public/Singleton.h"
+#include "../../../public/SystemConfig.h"
+#include "../../../public/Singleton.h"
 
 using namespace PUBLIC;
 

@@ -18,4 +18,3 @@ int main(int argc, char* argv[])
   client.connect();
   loop.loop();
 }
-

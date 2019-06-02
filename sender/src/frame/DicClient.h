@@ -16,7 +16,7 @@ class InetAddress;
 
 class Client : boost::noncopyable
 {
- public:
+public:
   Client(EventLoop* loop, const InetAddress& serverAddr);
   ~Client();
 
