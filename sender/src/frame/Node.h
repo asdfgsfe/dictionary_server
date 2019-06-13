@@ -20,8 +20,10 @@ public:
 
 private:
   uint16_t port_;
+  uint32_t numIp_;
   std::string  ip_;
-  std::string host_;
+  std::string name_;
+  bool isSelf_;
 };
 
 }

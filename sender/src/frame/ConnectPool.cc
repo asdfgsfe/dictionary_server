@@ -4,9 +4,8 @@ namespace Sender
 {
 namespace Frame
 {
-ConnectPool::ConnectPool(const string& name, uint16_t capacity)
+ConnectPool::ConnectPool(const string& name)
   : name_(name),
-    maxClientsNum_(capacity),
     running_(false),
     clients_()
 {
