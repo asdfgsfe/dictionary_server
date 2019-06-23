@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package muduo;
+
+message Query {
+  string key = 1;
+
+  repeated string question = 2;
+}
+
+message Reply {
+  string reply = 1;
+  repeated string solution = 3;
+}
+
+message Set {
+  string key = 1;
+  string value = 2;
+}
+
+message Empty {
+  int32 id = 1;
+}
