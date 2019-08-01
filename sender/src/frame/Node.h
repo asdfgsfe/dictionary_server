@@ -1,29 +1,35 @@
 #ifndef _NODE_H_
 #define _NODE_H_
 
+#include <string>
 #include <boost/noncopyable.hpp>
 
 namespace Sender
 {
 namespace Frame
 {
-class Node : boost::noncopyable
+class Node : boost::copyable
 {
 public:
-  Node::Node(uint16_t port, const string& ip)
-    : port_(port),
+  Node::Node(string&& name, string& path, string&& ip = "", string&& port = "") //fix
+    : name_(name),
+      path_(path),
+      port_(port),
       ip_(ip),
-      host_(ip_ + ":" + std::to_string(port_))
   {
 
   }
+  ~Node() = default;
 
+  std::string IP() const { return ip_; }
+  uint16_t Port() const { return port_; }
+  std::string Name() const { return name_; }
+  std::string ZkPath() const { return path_; }
 private:
-  uint16_t port_;
-  uint32_t numIp_;
-  std::string  ip_;
-  std::string name_;
-  bool isSelf_;
+  std::string ip_;
+  std::string  port_;
+  std::string name_; //"sender" "receiver"
+  std::string path_;// path=/dict/sender/node:xxx
 };
 
 }

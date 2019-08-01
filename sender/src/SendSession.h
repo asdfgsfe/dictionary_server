@@ -22,7 +22,8 @@ public:
     return cmd_;
   }
 private:
-  std::unique_ptr<DicClient> client_;
+  //std::unique_ptr<DicClient> client_;
+  std::shared_ptr<ConnPoolManager> connManager_;
   std::string name_;
   uint16_t cmd_;
   muduo::net::Buffer buffer_;

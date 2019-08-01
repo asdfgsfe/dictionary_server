@@ -17,10 +17,13 @@ SendSession::SendSession(uint16_t cmd)
   client_.disconnect();
 }
 
-void SendSession::Send(const char* buf, int len)
+void SendSession::SendData(muduo::net::Buffer&& data)
 {
-  client_->Send(buf, len); 
+  //client_->Send(buf, len); 
+  connManager_->PutData(std::foward(data));
 }
+
+//TODO fix 异步接受
 void SendSession::Recv();
 {
   client_->Recv(buffer_);
