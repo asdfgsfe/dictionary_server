@@ -11,14 +11,12 @@
 using namespace muduo;
 using namespace muduo::net;
 
-class EventLoop;
-class InetAddress;
-
 class Client : boost::noncopyable
 {
+  using DataCallback = std::function(muduo::StringPiece message ());
 public:
   Client(EventLoop* loop, const InetAddress& serverAddr);
-  ~Client();
+  ~Client() = default;
 
   void connect()
   {
@@ -27,27 +25,28 @@ public:
 
   void disconnect()
   {
-    // client_.disconnect();
+    client_.disconnect();
   }
 
   // 该函数在主线程中执行
-  void write(const StringPiece& message);
-  void onHighWaterMark();
-  void onWriteComplete();
+  void OnHighWaterMark();
+  void OnWriteComplete();
+  void SetDataCallback(const DataCallback& cb) 
+  { dataCallback_ = cb; }
  private:
   // 该函数在IO线程中执行，IO线程与主线程不在同一个线程
-  void onConnection(const TcpConnectionPtr& conn);
-  //TODO debug
-  void onStringMessage(const TcpConnectionPtr&,
+  void OnConnection(const TcpConnectionPtr& conn);
+  //TODO debug == recv
+  void OnStringMessage(const TcpConnectionPtr&,
                        const string& message,
                        Timestamp);
-
+  void Send();
 private:
   EventLoop* loop_;
   TcpClient client_;
   LengthHeaderCodec codec_;
-  MutexLock mutex_;
   TcpConnectionPtr connection_;
+  DataCallback dataCallback_;
 };
 
 #endif //_DIC_CLIENT_H_

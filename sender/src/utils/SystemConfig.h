@@ -13,12 +13,12 @@ namespace PUBLIC
 class SystemConfig
 {
 public:
-	SystemConfig(const string& filepath);
+	SystemConfig(const std::string& filepath);
 	void Load();
 	const std::string& GetProperty(const std::string& name);
 
 private:
-	map<std::string, std::string> properties_;
+  std::map<std::string, std::string> properties_;
 	std::string filepath_;
 };
 

@@ -17,7 +17,8 @@ void SystemConfig::Load()
 	string segmentName;
 	string propertyName;
 	char* find = NULL;
-	char buf[512] = {0};
+  (void)find;
+	//char buf[512] = {0};
 
 	string line;
 	string::size_type pos;
