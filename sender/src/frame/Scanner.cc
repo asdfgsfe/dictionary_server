@@ -28,7 +28,9 @@ void Scanner::StopPool()
 
 void Scanner::InitUpdateTime()
 {
-  //TODO 读取配置文件各个词典的跟新跨度
+  //TODO 读取配置文件各词典名字及定时器检测跨度
+  //工场模式 在这进行词典对象的创建?
+  //<k,v> <cmd, DictObject> DictObject每个词典及属性
   monitorDicUpdateTime_[CMD_RANK_SCORE] = 3;
 }
 
@@ -38,6 +40,8 @@ void Scanner::RegisterMonitor()
   {
     return;
   }
+  //仅仅只是将各种定时器注册到了一个EventLoop中 在一个单线程中运行
+  //fix multi Reactor模式
   for (auto timer : monitorDicUpdateTime_)
   {
     monitorLoop_.runEvery(timer.second, 
@@ -45,6 +49,8 @@ void Scanner::RegisterMonitor()
   }
 }
 
+//IsNewDictArrived函数也是类似于多态的基类 
+//这里如何去掉switch case 做成基于对象的静态多态呢 功能上仅仅只是包装了每个词典的IsNewDictArrived
 void Scanner::IsNewDictArrived(uint16_t cmd)
 {
   switch (cmd)

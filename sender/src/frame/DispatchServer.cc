@@ -82,7 +82,8 @@ void DispatchServer::ThreadInit(EventLoop* loop)
   loops_.emplace(loop);
 }
 
-//session调用这个接口r扔到队列中   一个session负责一个词典 可以考虑丢弃 通过让session回调onMeaasge解决 
+//session调用这个接口r扔到队列中   一个session负责一个词典 可以考虑丢弃 通过让session回调onMeaasge解决
+//一个session只网一个dispatchTSD队列中写数据 一个dispatch有多个数据类型 有多个session写 session和dispatch无关系
 void DispatchServer::SendData(string&& data, muduo::Timestamp receiveTime)
 {
   if (running_)

@@ -48,7 +48,9 @@ void PrerankScore::Execute(SendSession& session)
   // 发送请求包
   session.Send(jos.Data(), jos.Length());
   //接受应答包 fix异步 接受的目的是为了打点监控流程是否正常
-  session.Recv();
+  //需要异步 异步的目的是为了腾出当前线程去发送别的数据 因为所有fetcher都在一个线程池中
+  //错误处理交给错误处理线程 或者采用一个回调函数异步就行 因为这里只是将数据发送到sender的队列中
+  session.Recv(); //将Recv函数及以后的操作回调异步化
   JInStream jis((const char*)session.GetResponsePack(), 
                 session.GetResponsePack()->head.len+sizeof(ResponseHead));
   jis.Skip(4);

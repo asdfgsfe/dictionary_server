@@ -26,7 +26,7 @@ public:
   void ThreadInit(EventLoop* loop);
   void SendData(string&& data, muduo::Timestamp receiveTime);
   void OnConnection(const PeerPtr& peer);
-  void DispatchServer::OnMessage();
+  void OnMessage();
 
   void Send(const PeerPtr& peer, const muduo::StringPiece& message);
   void DistributeMessage(const string& data);
